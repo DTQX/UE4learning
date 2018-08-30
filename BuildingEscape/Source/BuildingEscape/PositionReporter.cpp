@@ -3,6 +3,8 @@
 #include "PositionReporter.h"
 
 
+
+
 // Sets default values for this component's properties
 UPositionReporter::UPositionReporter()
 {
@@ -11,6 +13,7 @@ UPositionReporter::UPositionReporter()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+	UE_LOG(LogTemp, Warning, TEXT("sdsd"));
 }
 
 
@@ -20,7 +23,10 @@ void UPositionReporter::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
+	FString ObjectName = GetOwner()->GetName();
+	FString ObjectPos = GetOwner()->GetTransform().GetLocation().ToString();
+	UE_LOG(LogTemp, Warning, TEXT("%s is at %s"), *ObjectName, *ObjectPos);
+
 }
 
 
@@ -30,5 +36,6 @@ void UPositionReporter::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+	
 }
 
