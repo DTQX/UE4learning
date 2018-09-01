@@ -2,10 +2,11 @@
 
 #pragma once
 
-#include "Engine/TriggerVolume.h"
+
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Engine/TriggerVolume.h"
 #include "OpenDoor.generated.h"
 
 
@@ -27,10 +28,20 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	UPROPERTY(VisibleAnywhere)
-		float openAngle = 90.0f;
+	UPROPERTY(EditAnywhere)
+	float OpenAngle = -90.0f;
 
 	UPROPERTY(EditAnywhere)
-		ATriggerVolume* pressurePlate;
+	float DoorCloseDelay = 1.f;
+
+	UPROPERTY(EditAnywhere)
+	ATriggerVolume* PressurePlate;
+
+	float LastDoorOpenTime;
+	AActor* Owner;
+	AActor* ActorThatOpens;
+
+	void CloseDoor();
+	void OpenDoor();
 	
 };
