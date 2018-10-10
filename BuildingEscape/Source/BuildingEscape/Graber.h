@@ -3,7 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
+#include "Components/InputComponent.h"
 #include "Components/ActorComponent.h"
+#include "Engine/TriggerVolume.h"
 #include "Graber.generated.h"
 
 
@@ -27,5 +30,18 @@ public:
 private:
 	UPROPERTY(EditAnywhere)
 	float Length = 100.f;
+	
+	UPhysicsHandleComponent * physicHandle = nullptr;
+
+	UInputComponent * InputComponent = nullptr;
+
+	void Grab();
+
+	void Releas();
+
+	const FHitResult GetFirstPhysicsBodyInReach();
+
+	
+
 	
 };
