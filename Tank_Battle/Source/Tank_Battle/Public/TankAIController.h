@@ -3,10 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Tank.h"
+
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
+class ATank;
 /**
  * 
  */
@@ -22,5 +23,9 @@ public:
 
 	void BeginPlay() override;
 	
-	
+	virtual void Tick(float DeltaTime) override;
+
+private:
+	//How close can the AI tank get
+	float AcceptanceRadius = 0;
 };

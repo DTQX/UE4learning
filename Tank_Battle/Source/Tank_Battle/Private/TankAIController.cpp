@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAIController.h"
+#include "Tank.h"
 
 ATank* ATankAIController::GetControlledTank() const {
 	return Cast<ATank>(GetPawn());
@@ -17,13 +18,18 @@ ATank* ATankAIController::GetPlayerTank() const {
 
 void ATankAIController::BeginPlay() {
 	Super::BeginPlay();
+}
 
-	auto PlayerTank = GetPlayerTank();
-	if (!PlayerTank)
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	ATank* PlayerTank = GetPlayerTank();
+	ATank* ControlledTank = GetControlledTank();
+	if (PlayerTank != nullptr && ControlledTank != nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AIController can not find plyer tank"));
+		MoveToActor(PlayerTank, AcceptanceRadius);
+		ControlledTank->AimAt(PlayerTank->GetActorLocation());
+		ControlledTank->Fire();
 	}
-	else {
-		UE_LOG(LogTemp, Warning, TEXT("AIController find player: %s"), *(PlayerTank->GetName()));
-	}
+	
 }
